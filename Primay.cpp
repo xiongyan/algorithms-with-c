@@ -7,7 +7,7 @@ struct {
 } person, person_copy;
 
 
-int main() 
+int main()
 {
 	char myname[] = "memcpy example";
 

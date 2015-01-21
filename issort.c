@@ -15,7 +15,7 @@ int issort(void *data, int size, int esize, int (*compare)(const void *key1,
 		if ((key = (char *) malloc(sizeof(char))) == NULL)
 		{
 			return -1;
-		}	
+		}
 
 		/*
 		* Repeatlly insert a key element among the sorted elements.

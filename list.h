@@ -4,7 +4,7 @@
 
 
 #ifndef LIST_H
-#define LIST_H 
+#define LIST_H
 
 #include <stdlib.h>
 
@@ -30,7 +30,7 @@ typedef struct List_
 	int (*match)(const void *key1, const void *key2);
 	void (*destory)(void *data);
 	ListElmt_ *head;
-	ListElmt_ *tail;	
+	ListElmt_ *tail;
 }List;
 
 
