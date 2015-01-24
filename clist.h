@@ -7,7 +7,7 @@
 #define CLIST_H
 
 #include <stdlib.h>
-
+#include "list.h"
 
 /*
 * Define a structure for circular list elements.
@@ -24,6 +24,7 @@ typedef struct CList_
 {
 	int size;
 	int (*match)(const void* key1, const void* key2);
+	void (*destroy)(void *data);
 	CListElmt *head;
 }CList;
 
@@ -31,10 +32,10 @@ typedef struct CList_
 *	Public Interface
 */
 
-void clist_init(CList *list, void(*destory)(void *data));
-void clist_destory(CList *list);
-void clist_ins_next(CList *list, CListElmt *element, const void *data);
-void clist_rem_next(CList *list, CListElmt *element, void **data);
+void clist_init(CList *list, void(*destroy)(void *data));
+void clist_destroy(CList *list);
+int clist_ins_next(CList *list, CListElmt *element, const void *data);
+int clist_rem_next(CList *list, CListElmt *element, void **data);
 
 #define clist_size(list)((list)->size)
 #define clist_head(list)((list)->head)

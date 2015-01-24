@@ -4,7 +4,7 @@
 
 #include <stdlib.h>
 
-#include "list.h"
+#include "list.c"
 #include "queue.h"
 
 
@@ -24,7 +24,7 @@ int queue_enqueue(Queue *queue, const void *data)
 /*
 * queue_dequeue
 */
-int queue_dequeue(Queue *queue, const void* data)
+int queue_dequeue(Queue *queue, void** data)
 {
 	/*
 	* Dequeue the data

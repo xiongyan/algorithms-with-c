@@ -12,14 +12,14 @@
 * Implement queues as linked lists.
 */
 
-typedef list Queue;
+typedef List Queue;
 
 /*
 * Public interface
 */
 
 #define queue_int list_init
-#define queue_destory list_destory
+#define queue_destroy list_destroy
 
 int queue_enqueue(Queue *queue, const void *data);
 int queue_dequeue(Queue *queue, void **data);

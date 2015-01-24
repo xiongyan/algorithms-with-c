@@ -25,9 +25,9 @@ void clist_init(CList *list, void (*destroy)(void *data))
 }
 
 /*
-* clist_destory
+* clist_destroy
 */
-void clist_destory(CList *list)
+void clist_destroy(CList *list)
 {
 	void *data;
 
@@ -41,13 +41,13 @@ void clist_destory(CList *list)
 			/*
 			* Call a user-defined function to free dynamically allocated data.
 			*/
-			list->destory(data);
+			list->destroy(data);
 		}
 	}
 	/*
 	*	No operations all allowed now, but clear the structure as a precaution.
 	*/
-	memset(list, 0, size(CList));
+	memset(list, 0, clist_size(list));
 	return;
 }
 

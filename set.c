@@ -9,19 +9,19 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "list.h"
+#include "list.c"
 #include "set.h"
 
 /*
 *	set_init
 */
 void set_init(Set *set, int (*match)(const void *key1, const void *key2),
-	void (*destory)(void *data))
+	void (*destroy)(void *data))
 {
 	/*
 	*	Initialize the set.
 	*/
-	list_init(set, destory);
+	list_init(set, destroy);
 	set->match = match;
 
 	return;
@@ -43,7 +43,7 @@ int set_insert(Set *set, const void *data)
 	/*
 	*	Insert the data.
 	*/
-	return list_ins_next(set, lis_tail(set), data);
+	return list_ins_next(set, list_tail(set), data);
 }
 
 /*
@@ -84,7 +84,7 @@ int set_remove(Set *set, void **data)
  * set_union
  */
 
- int set_union(Set *setu, const Set *set1, cosnt Set *set2)
+ int set_union(Set *setu, const Set *set1, const Set *set2)
  {
 	ListElmt *member;
 	void *data;
@@ -103,7 +103,7 @@ int set_remove(Set *set, void **data)
 
 		if (list_ins_next(setu, list_tail(setu), data) != 0)
 		{
-			set_destory(setu);
+			set_destroy(setu);
 			return -1;
 		}
 	}
@@ -126,7 +126,7 @@ int set_remove(Set *set, void **data)
 			data = list_data(member);
 			if(list_ins_next(setu, list_tail(setu), data) != 0)
 			{
-				set_destory(setu);
+				set_destroy(setu);
 				return -1;
 			}
 		}
@@ -136,10 +136,10 @@ int set_remove(Set *set, void **data)
 
 
 /**
- * set_insertion
+ * set_intersection
  */
 
- int set_insertion(Set *set1, const Set *set1, const Set *set2)
+ int set_intersection(Set *seti, const Set *set1, const Set *set2)
  {
 	ListElmt *member;
 	void *data;
@@ -152,14 +152,14 @@ int set_remove(Set *set, void **data)
 	/**
 	 * Insert the members present in both sets.
 	 */
-	for(member = list_head(set1), member != NULL; member = list_next(member))
+	for(member = list_head(set1); member != NULL; member = list_next(member))
 	{
 		if(set_is_member(set2, list_data(member)))
 		{
 			data = list_data(member);
 			if (list_ins_next(seti, list_tail(seti), data) != 0)
 			{
-				set_destory(seti);
+				set_destroy(seti);
 				return -1;
 			}
 		}
@@ -205,7 +205,7 @@ int set_remove(Set *set, void **data)
 	/**
 	 * Determine if set1 is a subset of set2
 	 */
-	for(member = list_head(set1), member != NULL; member = list_next(member))
+	for(member = list_head(set1); member != NULL; member = list_next(member))
 	{
 		if(!set_is_member(set2, list_data(member)))
 		{

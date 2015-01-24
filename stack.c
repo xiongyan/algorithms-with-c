@@ -1,6 +1,6 @@
 #include <stdlib.h>
 
-#include "list.h"
+#include "list.c"
 #include "stack.h"
 
 

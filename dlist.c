@@ -11,13 +11,13 @@
 
 #include "dlist.h"
 
-void dlist_init(DList *list, void (*destory)(void *data))
+void dlist_init(DList *list, void (*destroy)(void *data))
 {
 	/*
 	* Initialize the list
 	*/
 	list->size = 0;
-	list->destory = destory;
+	list->destroy = destroy;
 	list->head = NULL;
 	list->tail = NULL;
 	return;
@@ -25,10 +25,10 @@ void dlist_init(DList *list, void (*destory)(void *data))
 
 
 /*
-* dlist_destory
+* dlist_destroy
 */
 
-void dlist_destory(DList* list)
+void dlist_destroy(DList* list)
 {
 	void* data;
 
@@ -38,11 +38,11 @@ void dlist_destory(DList* list)
 
 	while(dlist_size(list) > 0) {
 		if (dlist_remove(list, dlist_tail(list), (void **)&data) == 0
-			&& list->destory != NULL){
+			&& list->destroy != NULL){
 			/*
 			* Call a user-defined function to free dynamically allocated data.
 			*/
-			list->destory(data);
+			list->destroy(data);
 		}
 	}
 	/*
@@ -120,7 +120,7 @@ int dlist_ins_next(DList *list, DListElmt *element, const void *data)
 /*
 * dlist_remove
 */
-int dlist_remove(DList *list,  DListElmt *element, void* data)
+int dlist_remove(DList *list,  DListElmt *element, void **data)
 {
 	/*
 	* Do not allow a NULL element or removal from an empty list.

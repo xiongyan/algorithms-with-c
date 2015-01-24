@@ -6,44 +6,16 @@
 * list_init
 */
 
-void list_init(List *list, void (*destory)(void *data))
+void list_init(List *list, void (*destroy)(void *data))
 {
 	/*
 	* Initialize the list.
 	*/
 
 	list->size = 0;
-	list->destroy = destory;
+	list->destroy = destroy;
 	list->head = NULL;
 	list->tail = NULL;
-	return;
-}
-
-
-/*
-* list_destory
-*/
-void list_destory(List *list)
-{
-	void *data;
-	/*
-	* Remove each element
-	*/
-
-	while(list_size(list)>0)
-	{
-		if(list_rem_next(list, NULL, (void **)&data) == 0 && list->destory != NULL)
-		{
-			/*
-			* Call a user-defined function to free dynamically allocated data.
-			*/
-			list->destory(data);
-		}
-	}
-	/*
-	* No operations are allowed now, but clear the structure as precaution.
-	*/
-	memset(list, 0, sizeof(List));
 	return;
 }
 
@@ -162,4 +134,31 @@ int list_rem_next(List *list, ListElmt *element, void **data)
 	*/
 	list->size--;
 	return 0;
+}
+
+/*
+* list_destroy
+*/
+void list_destroy(List *list)
+{
+	void *data;
+	/*
+	* Remove each element
+	*/
+
+	while(list_size(list)>0)
+	{
+		if(list_rem_next(list, NULL, (void **)&data) == 0 && list->destroy != NULL)
+		{
+			/*
+			* Call a user-defined function to free dynamically allocated data.
+			*/
+			list->destroy(data);
+		}
+	}
+	/*
+	* No operations are allowed now, but clear the structure as precaution.
+	*/
+	memset(list, 0, sizeof(List));
+	return;
 }
