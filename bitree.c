@@ -300,7 +300,7 @@ int bitree_merge(BiTree *merge, BiTree *left, BiTree *right, const void *data)
 	merge->size = merge->size + bitree_size(left) + bitree_size(right);
 
 	/**
-	 *	Do not let the original treess access the merged nodes.
+	 *	Do not let the original tree access the merged nodes.
 	 */
 
 	left->root = NULL;
