@@ -30,5 +30,6 @@ int main()
   string_edit(&str);
   printf("%s\n", str);
   free(str);
+  str = NULL;
   return 0;
 }
